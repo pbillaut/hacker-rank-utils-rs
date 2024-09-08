@@ -1,24 +1,21 @@
 use std::{
     error::Error,
     fmt::Debug,
-    io::{
-        BufRead,
-        Lines,
-    },
+    io::{BufRead, Lines},
     str::FromStr,
 };
 
-pub type Result<T> = core::result::Result<T, Box<dyn Error>>;
+pub type InputParserResult<T> = Result<T, Box<dyn Error>>;
 
 /// Input reader with convenience functions to easily parse common HackerRank input.
-pub struct InputReader<R>
+pub struct InputParser<R>
 where
     R: BufRead,
 {
     lines: Lines<R>,
 }
 
-impl<R> InputReader<R>
+impl<R> InputParser<R>
 where
     R: BufRead,
 {
@@ -30,7 +27,7 @@ where
         &mut self.lines
     }
 
-    pub fn next_value<T>(&mut self) -> Result<T>
+    pub fn next_value<T>(&mut self) -> InputParserResult<T>
     where
         T: FromStr,
         T::Err: Debug,
@@ -42,7 +39,7 @@ where
             .map_err(|err| format!("Unable to parse next value: {:?}", err).into())
     }
 
-    pub fn next_values<T>(&mut self, num_values: usize) -> Result<Vec<T>>
+    pub fn next_values<T>(&mut self, num_values: usize) -> InputParserResult<Vec<T>>
     where
         T: FromStr,
         T::Err: Debug,
@@ -55,7 +52,7 @@ where
         Ok(list)
     }
 
-    pub fn next_vector<T>(&mut self) -> Result<Vec<T>>
+    pub fn next_vector<T>(&mut self) -> InputParserResult<Vec<T>>
     where
         T: FromStr,
         T::Err: Debug,
@@ -67,7 +64,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::InputReader;
+    use super::InputParser;
     use std::io;
 
     fn raw_input(lines: &[&str]) -> io::Cursor<String> {
@@ -80,7 +77,7 @@ mod tests {
         let expected = 1;
 
         let input = raw_input(lines);
-        let mut reader = InputReader::new(input);
+        let mut reader = InputParser::new(input);
 
         let maybe_value = reader.next_value::<usize>();
         assert!(maybe_value.is_ok());
@@ -93,7 +90,7 @@ mod tests {
         let expected = vec![1, 2, 3, 4];
 
         let input = raw_input(lines);
-        let mut reader = InputReader::new(input);
+        let mut reader = InputParser::new(input);
 
         let maybe_values = reader.next_values::<usize>(lines.len());
         assert!(maybe_values.is_ok());
@@ -106,7 +103,7 @@ mod tests {
         let expected = vec![1, 2, 3, 4];
 
         let input = raw_input(lines);
-        let mut reader = InputReader::new(input);
+        let mut reader = InputParser::new(input);
 
         let maybe_values = reader.next_vector::<usize>();
         assert!(maybe_values.is_ok());

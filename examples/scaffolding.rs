@@ -6,21 +6,21 @@ fn solution() {
 
 fn main() {
     let stdin = io::stdin();
-    let mut reader = InputReader::new(stdin.lock());
+    let mut reader = InputParser::new(stdin.lock());
     // Enter your parsing code here
     solution();
 }
 
-pub type Result<T> = core::result::Result<T, Box<dyn Error>>;
+pub type InputParserResult<T> = Result<T, Box<dyn Error>>;
 
-pub struct InputReader<R>
+pub struct InputParser<R>
 where
     R: BufRead,
 {
     lines: Lines<R>,
 }
 
-impl<R> InputReader<R>
+impl<R> InputParser<R>
 where
     R: BufRead,
 {
@@ -32,7 +32,7 @@ where
         &mut self.lines
     }
 
-    pub fn next_value<T>(&mut self) -> hacker_rank_utils_rs::Result<T>
+    pub fn next_value<T>(&mut self) -> InputParserResult<T>
     where
         T: FromStr,
         T::Err: Debug,
@@ -44,7 +44,7 @@ where
             .map_err(|err| format!("Unable to parse next value: {:?}", err).into())
     }
 
-    pub fn next_values<T>(&mut self, num_values: usize) -> hacker_rank_utils_rs::Result<Vec<T>>
+    pub fn next_values<T>(&mut self, num_values: usize) -> InputParserResult<Vec<T>>
     where
         T: FromStr,
         T::Err: Debug,
@@ -57,7 +57,7 @@ where
         Ok(list)
     }
 
-    pub fn next_vector<T>(&mut self) -> hacker_rank_utils_rs::Result<Vec<T>>
+    pub fn next_vector<T>(&mut self) -> InputParserResult<Vec<T>>
     where
         T: FromStr,
         T::Err: Debug,

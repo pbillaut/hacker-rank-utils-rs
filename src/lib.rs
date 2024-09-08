@@ -1,3 +1,3 @@
-mod input_reader;
+mod input_parser;
 
-pub use input_reader::{InputReader, Result};
+pub use input_parser::{InputParser, InputParserResult};
