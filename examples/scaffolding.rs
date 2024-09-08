@@ -6,7 +6,7 @@ fn solution() {
 
 fn main() {
     let stdin = io::stdin();
-    let mut reader = InputParser::new(stdin.lock());
+    let _reader = InputParser::new(stdin.lock());
     // Enter your parsing code here
     solution();
 }
