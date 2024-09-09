@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "hacker-rank-utils-rs"
+name = "hacker-rank-utils"
 version = "0.1.0"

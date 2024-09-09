@@ -1,6 +1,17 @@
 [package]
-name = "hacker-rank-utils-rs"
+name = "hacker-rank-utils"
 version = "0.1.0"
+description = "Utilities that make using Rust on HackerRank a little easier"
+readme = "README.md"
+repository = "https://github.com/pbillaut/hacker-rank-utils-rs"
+license = "MIT"
+authors = ["Patrice Billaut"]
+keywords = ["hackerrank"]
+categories = ["development-tools", "parsing"]
 edition = "2021"
 
-[dependencies]
+include = [
+    "Cargo.toml",
+    "LICENSE",
+    "src/**/*",
+]

@@ -2,7 +2,7 @@
 #![warn(rust_2018_idioms)]
 #![allow(unused)]
 
-use hacker_rank_utils_rs::InputParser;
+use hacker_rank_utils::InputParser;
 use std::error::Error;
 use std::io;
 use std::str::FromStr;
