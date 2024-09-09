@@ -61,6 +61,15 @@ where
         Ok(list)
     }
 
+    /// Parses multiple lines of input into a `Vec<T>`. Expects the first line to denote the number
+    /// of values to parse.
+    ///
+    /// # Example Input
+    /// ```ignore
+    /// 2
+    /// a
+    /// b
+    /// ```
     pub fn next_vector<T>(&mut self) -> InputParserResult<Vec<T>>
     where
         T: FromStr,
