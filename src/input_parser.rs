@@ -7,7 +7,7 @@ use std::{
 
 pub type InputParserResult<T> = Result<T, Box<dyn Error>>;
 
-/// Input reader with convenience functions to easily parse common HackerRank input.
+/// Parser with convenience functions for parsing input in common HackerRank formats.
 pub struct InputParser<R>
 where
     R: BufRead,
@@ -27,6 +27,7 @@ where
         &mut self.lines
     }
 
+    /// Parses a line into a value of type `T`.
     pub fn next_value<T>(&mut self) -> InputParserResult<T>
     where
         T: FromStr,
@@ -39,6 +40,14 @@ where
             .map_err(|err| format!("Unable to parse next value: {:?}", err).into())
     }
 
+    /// Parses `num_values` lines of input into a `Vec<T>`.
+    ///
+    /// # Example Input
+    /// ```ignore
+    /// 2
+    /// a
+    /// b
+    /// ```
     pub fn next_values<T>(&mut self, num_values: usize) -> InputParserResult<Vec<T>>
     where
         T: FromStr,
@@ -52,6 +61,15 @@ where
         Ok(list)
     }
 
+    /// Parses multiple lines of input into a `Vec<T>`. Expects the first line to denote the number
+    /// of values to parse.
+    ///
+    /// # Example Input
+    /// ```ignore
+    /// 2
+    /// a
+    /// b
+    /// ```
     pub fn next_vector<T>(&mut self) -> InputParserResult<Vec<T>>
     where
         T: FromStr,
